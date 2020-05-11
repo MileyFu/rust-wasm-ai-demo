@@ -52,7 +52,7 @@ $ wasm-pack build --target nodejs
 
 ## 创建一个node app
 
-The [node/app.js](node/app.js) app shows how to call the Rust functions from JavaScript. It uses a [pre-trained tensorflow model](https://storage.googleapis.com/mobilenet_v2/checkpoints/mobilenet_v2_1.4_224.tgz) to recognize two images.
+[node/app.js](node/app.js) app 展示了如何从 JavaScript 中调用 Rust 函数。它使用了一个[预先训练的 tensorflow 模型](https://storage.googleapis.com/mobilenet_v2/checkpoints/mobilenet_v2_1.4_224.tgz) 来识别两个图像。
 
 ## 测试
 
