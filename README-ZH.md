@@ -1,10 +1,10 @@
-# The tensorflow image recognition example
+# Tensorflow 图像识别案例
 
-In this example, we demonstrate how to do high performance AI inference in Node.js. The computationally intensive tensorflow code is written in Rust and executed in WebAssembly. The user-facing application that uses image recognition is written in JavaScript and runs in Node.js.
+在这个例子中，我们演示了如何在 Node.js 中实现高性能的 AI 推理。 计算密集型的 tensorflow 代码是用 Rust 编写的，并在 WebAssembly 中执行。 使用图像识别的面向用户的应用程序是用 JavaScript 编写的，并运行在 Node.js 中。
 
-> You can [fork](https://github.com/second-state/csdn-ai-demo) and open this git repository inside VSCode or VSCode Codespaces. With VSCode Codespaces, you can write code, compile, run and debug the application in your browser without installing any software. [See how](https://github.com/second-state/ssvm-nodejs-starter/blob/master/README.md).
+你可以在 VSCode 或者 VSCode Codespaces中[fork]https://github.com/second-state/csdn-ai-demo 并打开这个 git 库。 使用 VSCode 代码空间，您可以在浏览器中编写代码、编译、运行和调试应用程序，而无需安装任何软件。 [参见 https://github.com/second-state/ssvm-nodejs-starter/blob/master/readme.md ]。
 
-## Set up
+## 设置
 
 ```
 $ sudo apt-get update
@@ -24,43 +24,44 @@ $ nvm use v10.19.0
 $ npm install -g wasm-pack
 ```
 
-## Create new project
+## 创建新项目
 
 ```
 $ cargo new --lib tensorflow
 $ cd tensorflow
 ```
 
-## Change the cargo config file
+## 修改cargo config 文件
 
-The [Cargo.toml](Cargo.toml) file shows the dependencies.
+The [Cargo.toml](Cargo.toml) 文件显示依赖项.
 
 * The `wasm-bindgen` crate is required for invoking Rust functions from JavaScript. 
 * The `serde` and `serde_json` crates allow us to work with JSON strings to represent complex data types. 
 * The `nodejs-helper` crate allows the Rust function to access console, file system, database, and network.
 * The `images` crate only enables features that are compatible with WebAssembly.
 
-## Write Rust code
+## 写 Rust 代码
 
-The [src/lib.rs](src/lib.rs) file contains Rust functions to read the tensorflow model from a file, read and resize an image, and then run the model against the image to recognize the image subject. The result is returned as a JSON array containing the the ImageNet category ID for the recognized object, and the confidence level for this prediction. [Learn more](https://github.com/tensorflow/models/tree/master/research/slim/nets/mobilenet) about this example.
+ [src/lib.rs](src/lib.rs) 文件包含 Rust 函数从文件中读取 tensorflow 模型，读取并调整图像大小，然后根据图像运行模型来识别图像主题。 结果作为 JSON 数组返回，其中包含识别对象的 ImageNet 类别 ID 和此预测的置信度。[了解更多](https://github.com/tensorflow/models/tree/master/research/slim/nets/mobilenet) 有关这个案例。
 
-## Build the WASM bytecode
+## 创建 WASM bytecode
 
 ```
 $ wasm-pack build --target nodejs
 ```
 
-## Create a node app
+## 创建一个node app
 
 The [node/app.js](node/app.js) app shows how to call the Rust functions from JavaScript. It uses a [pre-trained tensorflow model](https://storage.googleapis.com/mobilenet_v2/checkpoints/mobilenet_v2_1.4_224.tgz) to recognize two images.
 
-## Test
+## 测试
 
 ```
 $ node app.js
 ```
 
-The first task is to recognize an image of computer scientist Grace Hopper. It takes 0.9s to recognize this image.
+第一个任务是识别计算机科学家格蕾丝 · 霍珀的图像，识别这个图像需要0.9秒。
+
 
 ```
 Model: "mobilenet_v2_1.4_224_frozen.pb"
@@ -74,13 +75,13 @@ Inference: 1322.637ms
 Detected object id 654 with probability 0.3256046
 ```
 
-Category ID `654` can be found in the [imagenet_slim_labels.txt](imagenet_slim_labels.txt). Line `654`.
+Category ID `654` 可以在 [imagenet_slim_labels.txt](imagenet_slim_labels.txt)找到。 行数 `654`.
 
 ```
 654 military uniform
 ```
 
-The second task is to recognize an image of a cat. It takes 0.8s to recognize this image.
+第二个任务是识别一张猫的图像，识别这张图像需要0.8秒。
 
 ```
 Model: "mobilenet_v2_1.4_224_frozen.pb"
@@ -94,9 +95,9 @@ Inference: 2014.602ms
 Detected object id 284 with probability 0.27039126
 ```
 
-Category ID `284` can be found in the [imagenet_slim_labels.txt](imagenet_slim_labels.txt). Line `284`.
+Category ID `284` 可以在这里找到 [imagenet_slim_labels.txt](imagenet_slim_labels.txt). 行数 `284`.
 
 ```
-284 tiger cat
+284 虎 猫
 ```
 
